@@ -2,22 +2,27 @@ library vertical_calendar.src.calendar;
 
 import 'package:flutter/material.dart';
 import 'package:vertical_calendar/src/customization/header_style.dart';
+import 'package:vertical_calendar/src/day_of_week.dart';
 import 'package:vertical_calendar/src/header.dart';
+import 'package:vertical_calendar/vertical_calendar.dart';
 
 class VerticalCalendar extends StatefulWidget {
   final DateTime startDate;
   final DateTime endDate;
   final int numOfMonth;
   final HeaderStyle headerStyle;
+  final DayOfWeekHeaderStyle dayOfWeekHeaderStyle;
+  final List<String> dayOfWeek;
 
   final void Function(DateTime startDate, DateTime endDate) onDateTap;
-  VerticalCalendar({
-    this.startDate,
-    this.endDate,
-    this.numOfMonth = 12,
-    this.headerStyle = const HeaderStyle(),
-    this.onDateTap,
-  });
+  VerticalCalendar(
+      {this.startDate,
+      this.endDate,
+      this.numOfMonth = 12,
+      this.headerStyle = const HeaderStyle(),
+      this.onDateTap,
+      this.dayOfWeekHeaderStyle = const DayOfWeekHeaderStyle(),
+      this.dayOfWeek = const ["M", "T", "W", "T", "F", "S", "S"]});
   @override
   _VerticalCalendarState createState() => _VerticalCalendarState();
 }
@@ -68,62 +73,19 @@ class _VerticalCalendarState extends State<VerticalCalendar> {
               Table(
                 children: [
                   TableRow(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: Colors.black),
-                        ),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: Colors.black),
                       ),
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Text(
-                            "M",
-                            textAlign: TextAlign.center,
-                          ),
+                    ),
+                    children: [
+                      for (var i in widget.dayOfWeek)
+                        DayOfWeekWidget(
+                          i,
+                          dayOfWeekStyle: widget.dayOfWeekHeaderStyle,
                         ),
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Text(
-                            "T",
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Text(
-                            "W",
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Text(
-                            "T",
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Text(
-                            "F",
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Text(
-                            "S",
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Text(
-                            "S",
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ]),
+                    ],
+                  ),
                   for (var d = 0; d <= days.length ~/ 7; d++)
                     if (d * 7 < days.length)
                       TableRow(
