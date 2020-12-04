@@ -2,6 +2,7 @@ library vertical_calendar.src.calendar;
 
 import 'package:flutter/material.dart';
 import 'package:vertical_calendar/src/customization/header_style.dart';
+import 'package:vertical_calendar/src/day.dart';
 import 'package:vertical_calendar/src/day_of_week.dart';
 import 'package:vertical_calendar/src/header.dart';
 import 'package:vertical_calendar/vertical_calendar.dart';
@@ -124,65 +125,10 @@ class _VerticalCalendarState extends State<VerticalCalendar> {
                                           days[d * 7 + w] == null) &&
                                       startDate != null &&
                                       endDate != null)
-                                    Container(
-                                      height:
-                                          (MediaQuery.of(context).size.width -
-                                                      70) /
-                                                  7 -
-                                              10,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: startDate.compareTo(
-                                                      days[d * 7 + w]) ==
-                                                  0
-                                              ? Radius.circular(
-                                                  (MediaQuery.of(context)
-                                                              .size
-                                                              .width -
-                                                          70) /
-                                                      14)
-                                              : Radius.circular(0),
-                                          bottomLeft: startDate.compareTo(
-                                                      days[d * 7 + w]) ==
-                                                  0
-                                              ? Radius.circular(
-                                                  (MediaQuery.of(context)
-                                                              .size
-                                                              .width -
-                                                          70) /
-                                                      14)
-                                              : Radius.circular(0),
-                                          topRight: endDate.compareTo(
-                                                      days[d * 7 + w]) ==
-                                                  0
-                                              ? Radius.circular(
-                                                  (MediaQuery.of(context)
-                                                              .size
-                                                              .width -
-                                                          70) /
-                                                      14)
-                                              : Radius.circular(0),
-                                          bottomRight: endDate.compareTo(
-                                                      days[d * 7 + w]) ==
-                                                  0
-                                              ? Radius.circular(
-                                                  (MediaQuery.of(context)
-                                                              .size
-                                                              .width -
-                                                          70) /
-                                                      14)
-                                              : Radius.circular(0),
-                                        ),
-                                        color: startDate.compareTo(
-                                                        days[d * 7 + w]) >
-                                                    0 ||
-                                                endDate.compareTo(
-                                                        days[d * 7 + w]) <
-                                                    0
-                                            ? Colors.white
-                                            : Color(0xFF007AFF)
-                                                .withOpacity(0.3),
-                                      ),
+                                    DayWidget(
+                                      "1",
+                                      isSelectedDate: false,
+                                      isFirstOrLast: false,
                                     ),
                                   Container(
                                     width: double.maxFinite,
@@ -261,20 +207,42 @@ class _VerticalCalendarState extends State<VerticalCalendar> {
     );
   }
 
-  List<DateTime> populateDate(DateTime date) {
-    var firstDayThisMonth = new DateTime(date.year, date.month, date.day);
-    var firstDayNextMonth = new DateTime(firstDayThisMonth.year,
-        firstDayThisMonth.month + 1, firstDayThisMonth.day);
-
-    List<DateTime> dt = List<DateTime>();
-    for (var i = 0;
-        i < firstDayNextMonth.difference(firstDayThisMonth).inDays;
-        i++) {
-      dt.add(DateTime(firstDayThisMonth.year, firstDayThisMonth.month, 1 + i));
+  bool checkInRange(DateTime currentDate) {
+    if (currentDate.isBefore(endDate) || currentDate.isAfter(startDate)) {
+      return true;
     }
-    if (dt.first.weekday > 1)
-      dt.insertAll(
-          0, List<DateTime>.generate(dt.first.weekday - 1, (index) => null));
-    return dt;
+    return false;
+  }
+
+  bool checkIsFirstOrLast(DateTime currentDate) {
+    if (currentDate.isSameDate(startDate) || currentDate.isSameDate(endDate)) {
+      return true;
+    }
+    return false;
+  }
+}
+
+List<DateTime> populateDate(DateTime date) {
+  var firstDayThisMonth = new DateTime(date.year, date.month, date.day);
+  var firstDayNextMonth = new DateTime(firstDayThisMonth.year,
+      firstDayThisMonth.month + 1, firstDayThisMonth.day);
+
+  List<DateTime> dt = List<DateTime>();
+  for (var i = 0;
+      i < firstDayNextMonth.difference(firstDayThisMonth).inDays;
+      i++) {
+    dt.add(DateTime(firstDayThisMonth.year, firstDayThisMonth.month, 1 + i));
+  }
+  if (dt.first.weekday > 1)
+    dt.insertAll(
+        0, List<DateTime>.generate(dt.first.weekday - 1, (index) => null));
+  return dt;
+}
+
+extension DateOnlyCompare on DateTime {
+  bool isSameDate(DateTime other) {
+    return this.year == other.year &&
+        this.month == other.month &&
+        this.day == other.day;
   }
 }

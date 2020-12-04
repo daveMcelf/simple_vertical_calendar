@@ -67,8 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Container(
-          width: 300,
-          height: 500,
+          // width: 300,
+          // height: 500,
           child: VerticalCalendar(
             numOfMonth: 6,
             headerStyle: HeaderStyle(
@@ -77,9 +77,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontSize: 15,
               ),
               backgroundStyle: BoxDecoration(
-                color: Colors.white,
-              ),
+                  // color: Colors.white,
+                  ),
             ),
+            dayOfWeekHeaderStyle: DayOfWeekHeaderStyle(),
             onDateTap: (start, end) {
               print(start);
               print(end);
