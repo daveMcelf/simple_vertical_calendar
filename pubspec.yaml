@@ -1,8 +1,8 @@
 name: vertical_calendar
-description: A new Flutter package project.
+description: This package contain widget for building a Vertical Scroll Calendar widget that is similar to the one use in AirBnB.
 version: 0.0.1
-author:
-homepage:
+author: poleakchanrith@gmail.com
+homepage: https://github.com/daveMcelf/vertical_calendar
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
