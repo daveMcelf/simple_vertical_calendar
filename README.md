@@ -1,4 +1,4 @@
-# vertical_calendar
+# simple_vertical_calendar
 
 This package contain widget for building a Vertical Scroll Calendar widget that is similar to the one use in AirBnB.
 This widget is design to be highly customizable. You can change any section of the widget to your like.
@@ -8,12 +8,12 @@ This widget is design to be highly customizable. You can change any section of t
 
 add this library to your `pubspec.yaml`
 ```
-vertical_calendar: ^0.0.1
+simple_vertical_calendar: ^0.0.1
 ```
 
 Using this widget,
 ```
-VerticalCalendar(
+SimpleVerticalCalendar(
     numOfMonth: 6,
     headerStyle: HeaderStyle(
         titleTextStyle: TextStyle(
