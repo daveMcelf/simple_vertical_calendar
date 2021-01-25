@@ -1,14 +1,36 @@
 # vertical_calendar
 
-A new Flutter package project.
+This package contain widget for building a Vertical Scroll Calendar widget that is similar to the one use in AirBnB.
+This widget is design to be highly customizable. You can change any section of the widget to your like.
 
-## Getting Started
+## installing
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+add this library to your `pubspec.yaml`
+```
+vertical_calendar: ^0.0.1
+```
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+Using this widget,
+```
+VerticalCalendar(
+    numOfMonth: 6,
+    headerStyle: HeaderStyle(
+        titleTextStyle: TextStyle(
+          color: Colors.red,
+          fontSize: 20,
+        ),
+        textAlgin: TextAlign.left,
+        monthFormat: MonthFormats.SHORT,
+    ),
+    dayOfWeekHeaderStyle: DayOfWeekHeaderStyle(),
+    dayStyle: DayHeaderStyle(
+        textColor: Colors.green, 
+        unavailableTextColor: Colors.pink,
+    ),
+    onDateTap: (start, end) {
+        print(start);
+        print(end);
+    },
+),
+
+```
