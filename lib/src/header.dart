@@ -16,11 +16,12 @@ class HeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
+      width: double.maxFinite,
       decoration: headerStyle.backgroundStyle,
       child: Text(
         DateFormat(monthFormat[headerStyle.monthFormat]).format(thisHeaderDate),
         style: headerStyle.titleTextStyle,
+        textAlign: headerStyle.textAlgin,
       ),
     );
   }

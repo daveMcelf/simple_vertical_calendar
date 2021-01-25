@@ -5,6 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Flutter Example",
+            "type": "dart",
+            "request": "launch",
+            "program": "example/lib/main.dart"
+        },
+        {
             "name": "vertical_calendar",
             "request": "launch",
             "type": "dart",

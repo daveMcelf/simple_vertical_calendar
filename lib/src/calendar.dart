@@ -1,10 +1,11 @@
 library vertical_calendar.src.calendar;
 
 import 'package:flutter/material.dart';
+import 'package:vertical_calendar/src/customization/day_style.dart';
 import 'package:vertical_calendar/src/customization/header_style.dart';
-import 'package:vertical_calendar/src/day.dart';
 import 'package:vertical_calendar/src/day_of_week.dart';
 import 'package:vertical_calendar/src/header.dart';
+import 'package:vertical_calendar/src/helper.dart';
 import 'package:vertical_calendar/vertical_calendar.dart';
 
 class VerticalCalendar extends StatefulWidget {
@@ -12,6 +13,7 @@ class VerticalCalendar extends StatefulWidget {
   final DateTime endDate;
   final int numOfMonth;
   final HeaderStyle headerStyle;
+  final DayHeaderStyle dayStyle;
   final DayOfWeekHeaderStyle dayOfWeekHeaderStyle;
   final List<String> dayOfWeek;
 
@@ -21,6 +23,7 @@ class VerticalCalendar extends StatefulWidget {
       this.endDate,
       this.numOfMonth = 12,
       this.headerStyle = const HeaderStyle(),
+      this.dayStyle = const DayHeaderStyle(),
       this.onDateTap,
       this.dayOfWeekHeaderStyle = const DayOfWeekHeaderStyle(),
       this.dayOfWeek = const ["M", "T", "W", "T", "F", "S", "S"]});
@@ -34,7 +37,7 @@ class _VerticalCalendarState extends State<VerticalCalendar> {
   int endMonth;
   DateTime startDate;
   DateTime endDate;
-
+  double boxHeight;
   _VerticalCalendarState({
     this.current,
     this.startMonth,
@@ -49,11 +52,13 @@ class _VerticalCalendarState extends State<VerticalCalendar> {
     endMonth = startMonth + widget.numOfMonth;
     startDate = widget.startDate;
     endDate = widget.endDate;
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    boxHeight = (MediaQuery.of(context).size.width - 70) / 7;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 35),
       child: ListView.builder(
@@ -121,74 +126,67 @@ class _VerticalCalendarState extends State<VerticalCalendar> {
                               child: Stack(
                                 alignment: Alignment.center,
                                 children: [
-                                  if (!((d * 7 + w) >= days.length ||
-                                          days[d * 7 + w] == null) &&
-                                      startDate != null &&
-                                      endDate != null)
-                                    DayWidget(
-                                      "1",
-                                      isSelectedDate: false,
-                                      isFirstOrLast: false,
-                                    ),
+                                  if (!checkInvalidDate(d * 7 + w, days))
+                                    if (checkInRange(
+                                        days[d * 7 + w], startDate, endDate))
+                                      Container(
+                                        width: double.maxFinite,
+                                        height: boxHeight - 10,
+                                        decoration: BoxDecoration(
+                                          color: widget.dayStyle
+                                              .dateInRangeBackgroundColor,
+                                        ),
+                                        margin: EdgeInsets.only(
+                                          left: startDate == days[d * 7 + w]
+                                              ? boxHeight / 2
+                                              : 0,
+                                          right: endDate == days[d * 7 + w]
+                                              ? boxHeight / 2
+                                              : 0,
+                                        ),
+                                      ),
                                   Container(
                                     width: double.maxFinite,
-                                    height: (MediaQuery.of(context).size.width -
-                                            70) /
-                                        7,
+                                    height: boxHeight,
                                     alignment: Alignment.center,
-                                    decoration: (!((d * 7 + w) >= days.length ||
-                                                days[d * 7 + w] == null) &&
+                                    decoration: (!checkInvalidDate(
+                                                d * 7 + w, days) &&
                                             startDate != null &&
                                             endDate != null)
                                         ? BoxDecoration(
-                                            borderRadius: startDate.compareTo(
-                                                            days[d * 7 + w]) ==
-                                                        0 ||
-                                                    endDate.compareTo(
-                                                            days[d * 7 + w]) ==
-                                                        0
+                                            borderRadius: checkIsFirstOrLast(
+                                                    days[d * 7 + w],
+                                                    startDate,
+                                                    endDate)
                                                 ? BorderRadius.circular(
-                                                    (MediaQuery.of(context)
-                                                                .size
-                                                                .width -
-                                                            70) /
-                                                        14)
+                                                    boxHeight / 2)
                                                 : BorderRadius.circular(0),
-                                            color: startDate.compareTo(
-                                                            days[d * 7 + w]) ==
-                                                        0 ||
-                                                    endDate.compareTo(
-                                                            days[d * 7 + w]) ==
-                                                        0
-                                                ? Color(0xFF007AFF)
+                                            color: checkIsFirstOrLast(
+                                                    days[d * 7 + w],
+                                                    startDate,
+                                                    endDate)
+                                                ? widget.dayStyle
+                                                    .selectedBackgroundColor
                                                 : Colors.transparent,
                                           )
                                         : BoxDecoration(),
                                     child: Text(
-                                      (d * 7 + w) >= days.length ||
-                                              days[d * 7 + w] == null
+                                      checkInvalidDate(d * 7 + w, days)
                                           ? ""
                                           : days[d * 7 + w]?.day?.toString() ??
                                               "",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 13,
-                                        color: (d * 7 + w) >= days.length ||
-                                                days[d * 7 + w] == null ||
-                                                days[d * 7 + w]
-                                                    .isBefore(current)
-                                            ? Colors.grey
-                                            : startDate != null &&
-                                                    endDate != null &&
-                                                    (startDate.compareTo(days[
-                                                                d * 7 + w]) ==
-                                                            0 ||
-                                                        endDate.compareTo(days[
-                                                                d * 7 + w]) ==
-                                                            0)
-                                                ? Colors.white
-                                                : Colors.black,
-                                        fontWeight: FontWeight.w500,
+                                        color: checkInvalidDate(d * 7 + w, days,
+                                                current: current)
+                                            ? widget
+                                                .dayStyle.unavailableTextColor
+                                            : checkInRange(days[d * 7 + w],
+                                                    startDate, endDate)
+                                                ? widget
+                                                    .dayStyle.selectedTextColor
+                                                : widget.dayStyle.textColor,
                                       ),
                                     ),
                                   ),
@@ -205,44 +203,5 @@ class _VerticalCalendarState extends State<VerticalCalendar> {
         },
       ),
     );
-  }
-
-  bool checkInRange(DateTime currentDate) {
-    if (currentDate.isBefore(endDate) || currentDate.isAfter(startDate)) {
-      return true;
-    }
-    return false;
-  }
-
-  bool checkIsFirstOrLast(DateTime currentDate) {
-    if (currentDate.isSameDate(startDate) || currentDate.isSameDate(endDate)) {
-      return true;
-    }
-    return false;
-  }
-}
-
-List<DateTime> populateDate(DateTime date) {
-  var firstDayThisMonth = new DateTime(date.year, date.month, date.day);
-  var firstDayNextMonth = new DateTime(firstDayThisMonth.year,
-      firstDayThisMonth.month + 1, firstDayThisMonth.day);
-
-  List<DateTime> dt = List<DateTime>();
-  for (var i = 0;
-      i < firstDayNextMonth.difference(firstDayThisMonth).inDays;
-      i++) {
-    dt.add(DateTime(firstDayThisMonth.year, firstDayThisMonth.month, 1 + i));
-  }
-  if (dt.first.weekday > 1)
-    dt.insertAll(
-        0, List<DateTime>.generate(dt.first.weekday - 1, (index) => null));
-  return dt;
-}
-
-extension DateOnlyCompare on DateTime {
-  bool isSameDate(DateTime other) {
-    return this.year == other.year &&
-        this.month == other.month &&
-        this.day == other.day;
   }
 }

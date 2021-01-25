@@ -7,7 +7,7 @@ class HeaderStyle {
   final TextStyle titleTextStyle;
   final MonthFormats monthFormat;
   final Decoration backgroundStyle;
-
+  final TextAlign textAlgin;
   const HeaderStyle({
     this.titleTextStyle = const TextStyle(
       fontSize: 22,
@@ -15,5 +15,6 @@ class HeaderStyle {
     ),
     this.monthFormat = MonthFormats.FULL,
     this.backgroundStyle,
+    this.textAlgin = TextAlign.center,
   });
 }
