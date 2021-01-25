@@ -8,7 +8,7 @@ This widget is design to be highly customizable. You can change any section of t
 
 add this library to your `pubspec.yaml`
 ```
-simple_vertical_calendar: ^0.0.1
+simple_vertical_calendar: ^0.0.2
 ```
 
 Using this widget,
