@@ -1,7 +1,6 @@
-name: vertical_calendar
+name: simple_vertical_calendar
 description: This package contain widget for building a Vertical Scroll Calendar widget that is similar to the one use in AirBnB.
 version: 0.0.1
-author: poleakchanrith@gmail.com
 homepage: https://github.com/daveMcelf/vertical_calendar
 
 environment:

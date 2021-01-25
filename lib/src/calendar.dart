@@ -1,14 +1,14 @@
-library vertical_calendar.src.calendar;
+library simple_vertical_calendar.src.calendar;
 
 import 'package:flutter/material.dart';
-import 'package:vertical_calendar/src/customization/day_style.dart';
-import 'package:vertical_calendar/src/customization/header_style.dart';
-import 'package:vertical_calendar/src/day_of_week.dart';
-import 'package:vertical_calendar/src/header.dart';
-import 'package:vertical_calendar/src/helper.dart';
-import 'package:vertical_calendar/vertical_calendar.dart';
+import 'package:simple_vertical_calendar/src/customization/day_style.dart';
+import 'package:simple_vertical_calendar/src/customization/dayofweek_style.dart';
+import 'package:simple_vertical_calendar/src/customization/header_style.dart';
+import 'package:simple_vertical_calendar/src/day_of_week.dart';
+import 'package:simple_vertical_calendar/src/header.dart';
+import 'package:simple_vertical_calendar/src/helper.dart';
 
-class VerticalCalendar extends StatefulWidget {
+class SimpleVerticalCalendar extends StatefulWidget {
   final DateTime startDate;
   final DateTime endDate;
   final int numOfMonth;
@@ -18,7 +18,7 @@ class VerticalCalendar extends StatefulWidget {
   final List<String> dayOfWeek;
 
   final void Function(DateTime startDate, DateTime endDate) onDateTap;
-  VerticalCalendar(
+  SimpleVerticalCalendar(
       {this.startDate,
       this.endDate,
       this.numOfMonth = 12,
@@ -31,7 +31,7 @@ class VerticalCalendar extends StatefulWidget {
   _VerticalCalendarState createState() => _VerticalCalendarState();
 }
 
-class _VerticalCalendarState extends State<VerticalCalendar> {
+class _VerticalCalendarState extends State<SimpleVerticalCalendar> {
   DateTime current;
   int startMonth;
   int endMonth;

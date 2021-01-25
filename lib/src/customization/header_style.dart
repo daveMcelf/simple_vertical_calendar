@@ -1,7 +1,7 @@
-library vertical_calendar.src.customization.header_style;
+library simple_vertical_calendar.src.customization.header_style;
 
 import 'package:flutter/material.dart';
-import 'package:vertical_calendar/src/constant.dart';
+import 'package:simple_vertical_calendar/src/constant.dart';
 
 class HeaderStyle {
   final TextStyle titleTextStyle;

@@ -1,7 +1,7 @@
-library vertical_calendar.src.day_of_week;
+library simple_vertical_calendar.src.day_of_week;
 
 import 'package:flutter/material.dart';
-import 'package:vertical_calendar/src/customization/dayofweek_style.dart';
+import 'package:simple_vertical_calendar/src/customization/dayofweek_style.dart';
 
 class DayOfWeekWidget extends StatelessWidget {
   final String thisHeaderText;

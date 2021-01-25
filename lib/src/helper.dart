@@ -1,4 +1,4 @@
-library vertical_calendar.src.helper;
+library simple_vertical_calendar.src.helper;
 
 bool checkInvalidDate(int index, List<DateTime> days, {DateTime current}) {
   if (current != null)

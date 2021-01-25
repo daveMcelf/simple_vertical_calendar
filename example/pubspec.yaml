@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  vertical_calendar:
+  simple_vertical_calendar:
     path: ../
 
   # The following adds the Cupertino Icons font to your application.

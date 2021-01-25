@@ -1,7 +1,7 @@
-library vertical_calendar.src.day;
+library simple_vertical_calendar.src.day;
 
 import 'package:flutter/material.dart';
-import 'package:vertical_calendar/src/customization/day_style.dart';
+import 'package:simple_vertical_calendar/src/customization/day_style.dart';
 
 /**
  * TODO: Implement CustomWidget Builder for Day 

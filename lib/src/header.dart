@@ -1,9 +1,9 @@
-library vertical_calendar.src.header;
+library simple_vertical_calendar.src.header;
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:vertical_calendar/src/constant.dart';
-import 'package:vertical_calendar/src/customization/header_style.dart';
+import 'package:simple_vertical_calendar/src/constant.dart';
+import 'package:simple_vertical_calendar/src/customization/header_style.dart';
 
 class HeaderWidget extends StatelessWidget {
   final DateTime thisHeaderDate;

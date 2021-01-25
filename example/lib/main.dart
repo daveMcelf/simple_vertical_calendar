@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vertical_calendar/vertical_calendar.dart';
+import 'package:simple_vertical_calendar/simple_vertical_calendar.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,7 +28,7 @@ class MyHomePage extends StatelessWidget {
       body: Center(
         child: Container(
           margin: EdgeInsets.symmetric(vertical: 15),
-          child: VerticalCalendar(
+          child: SimpleVerticalCalendar(
             numOfMonth: 6,
             headerStyle: HeaderStyle(
               titleTextStyle: TextStyle(

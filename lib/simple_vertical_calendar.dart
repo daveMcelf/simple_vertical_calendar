@@ -1,4 +1,4 @@
-library vertical_calendar;
+library simple_vertical_calendar;
 
 export 'src/customization/dayofweek_style.dart';
 export 'src/customization/header_style.dart';

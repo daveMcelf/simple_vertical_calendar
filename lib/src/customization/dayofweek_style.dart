@@ -1,4 +1,4 @@
-library vertical_calendar.src.customization.dayofweek_style;
+library simple_vertical_calendar.src.customization.dayofweek_style;
 
 import 'package:flutter/material.dart';
 
