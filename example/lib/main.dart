@@ -24,21 +24,25 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Center(
         child: Container(
+          margin: EdgeInsets.symmetric(vertical: 15),
           child: VerticalCalendar(
             numOfMonth: 6,
             headerStyle: HeaderStyle(
               titleTextStyle: TextStyle(
-                color: Colors.red,
+                color: Colors.black,
                 fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
               textAlgin: TextAlign.left,
-              monthFormat: MonthFormats.SHORT,
+              monthFormat: MonthFormats.FULL,
             ),
             dayOfWeekHeaderStyle: DayOfWeekHeaderStyle(),
             dayStyle: DayHeaderStyle(
-                textColor: Colors.green, backgroundColor: Colors.teal),
+              textColor: Colors.black,
+            ),
             onDateTap: (start, end) {
               print(start);
               print(end);
