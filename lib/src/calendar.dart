@@ -8,13 +8,60 @@ import 'package:simple_vertical_calendar/src/day_of_week.dart';
 import 'package:simple_vertical_calendar/src/header.dart';
 import 'package:simple_vertical_calendar/src/helper.dart';
 
+/// [SimpleVerticalCalendar] is the widget for scrollable vertical calendar that is similar to the one in AirBnB.
+///
+/// This widget is highly customizable where user can style different part of the widget according to their like.
+/// using this widget user can specify:
+/// startDate, endDate, numOfMonth, headerStyle, dayStyle, dayOfWeekHeaderStyle, dayOfWeek.
+///
+/// ```
+/// SimpleVerticalCalendar(
+///     numOfMonth: 6,
+///     headerStyle: HeaderStyle(
+///         titleTextStyle: TextStyle(
+///             color: Colors.black,
+///             fontSize: 20,
+///             fontWeight: FontWeight.bold,
+///         ),
+///         textAlgin: TextAlign.left,
+///         monthFormat: MonthFormats.FULL,
+///     ),
+///     dayOfWeekHeaderStyle: DayOfWeekHeaderStyle(),
+///     dayStyle: DayHeaderStyle(
+///         textColor: Colors.black,
+///     ),
+///     onDateTap: (start, end) {
+///         print(start);
+///         print(end);
+///     },
+/// ),
+/// ```
 class SimpleVerticalCalendar extends StatefulWidget {
+  /// the default selected start date when initialize the calendar
   final DateTime startDate;
+
+  /// the default selected end date when initialize the calendar
   final DateTime endDate;
+
+  /// Number of Month to display in the calendar.
+  ///
+  /// For example: `numOfMonth = 6` will include the next 6 months to calendar.
   final int numOfMonth;
+
+  /// Styling your Month Header widget using [HeaderStyle].
   final HeaderStyle headerStyle;
+
+  /// Styling your Day widget using [DayHeaderStyle].
   final DayHeaderStyle dayStyle;
+
+  /// Styling your Day of the week widget using [DayOfWeekHeaderStyle].
   final DayOfWeekHeaderStyle dayOfWeekHeaderStyle;
+
+  ///[dayOfWeek] is a list of String that display in text for your Day of Week Widget.
+  ///
+  /// For example: `dayOfWeek = const ["M", "T", "W", "T", "F", "S", "S"]`
+  ///
+  /// where index of Monday = 0, and Sunday = 6.
   final List<String> dayOfWeek;
 
   final void Function(DateTime startDate, DateTime endDate) onDateTap;

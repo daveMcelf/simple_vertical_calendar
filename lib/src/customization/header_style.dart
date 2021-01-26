@@ -3,6 +3,13 @@ library simple_vertical_calendar.src.customization.header_style;
 import 'package:flutter/material.dart';
 import 'package:simple_vertical_calendar/src/constant.dart';
 
+/// [HeaderStyle] is the styling class for each month header of the widget.
+///
+/// Using this style, you can add styling to your Month header widget.
+/// This class also give different text format to your Month header by using [MonthFormats].
+///
+/// The currently available style are: titleTextStyle, monthFormat, backgroundStyle, textAlgin
+
 class HeaderStyle {
   final TextStyle titleTextStyle;
   final MonthFormats monthFormat;

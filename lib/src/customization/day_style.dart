@@ -2,6 +2,13 @@ library simple_vertical_calendar.src.customization.day_style;
 
 import 'package:flutter/material.dart';
 
+/// [DayHeaderStyle] is the styling class for Day widget.
+///
+/// Using this style, you can specify all colors that you want for your Day.
+///
+/// The currently available style are: backgroundColor, selectedBackgroundColor
+/// dateInRangeBackgroundColor, textColor, selectedTextColor, unavailableTextColor.
+
 class DayHeaderStyle {
   final Color backgroundColor;
   final Color selectedBackgroundColor;
