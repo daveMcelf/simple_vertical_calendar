@@ -221,7 +221,7 @@ class _VerticalCalendarState extends State<SimpleVerticalCalendar> {
                                     child: Text(
                                       checkInvalidDate(d * 7 + w, days)
                                           ? ""
-                                          : days[d * 7 + w]?.day?.toString() ??
+                                          : days[d * 7 + w]?.day.toString() ??
                                               "",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
