@@ -38,10 +38,10 @@ import 'package:simple_vertical_calendar/src/helper.dart';
 /// ```
 class SimpleVerticalCalendar extends StatefulWidget {
   /// the default selected start date when initialize the calendar
-  final DateTime startDate;
+  final DateTime? startDate;
 
   /// the default selected end date when initialize the calendar
-  final DateTime endDate;
+  final DateTime? endDate;
 
   /// Number of Month to display in the calendar.
   ///
@@ -64,7 +64,7 @@ class SimpleVerticalCalendar extends StatefulWidget {
   /// where index of Monday = 0, and Sunday = 6.
   final List<String> dayOfWeek;
 
-  final void Function(DateTime startDate, DateTime endDate) onDateTap;
+  final void Function(DateTime startDate, DateTime endDate)? onDateTap;
   SimpleVerticalCalendar(
       {this.startDate,
       this.endDate,
@@ -79,12 +79,12 @@ class SimpleVerticalCalendar extends StatefulWidget {
 }
 
 class _VerticalCalendarState extends State<SimpleVerticalCalendar> {
-  DateTime current;
-  int startMonth;
-  int endMonth;
-  DateTime startDate;
-  DateTime endDate;
-  double boxHeight;
+  DateTime? current;
+  int? startMonth;
+  int? endMonth;
+  DateTime? startDate;
+  DateTime? endDate;
+  double? boxHeight;
   _VerticalCalendarState({
     this.current,
     this.startMonth,
@@ -95,8 +95,8 @@ class _VerticalCalendarState extends State<SimpleVerticalCalendar> {
   @override
   void initState() {
     current = DateTime.now();
-    startMonth = current.month;
-    endMonth = startMonth + widget.numOfMonth;
+    startMonth = current!.month;
+    endMonth = startMonth! + widget.numOfMonth;
     startDate = widget.startDate;
     endDate = widget.endDate;
 
@@ -112,9 +112,8 @@ class _VerticalCalendarState extends State<SimpleVerticalCalendar> {
         itemCount: widget.numOfMonth,
         itemBuilder: (context, index) {
           DateTime currentListMonth =
-              DateTime(current.year, current.month + index, current.day);
-          List<DateTime> days = populateDate(currentListMonth);
-
+              DateTime(current!.year, current!.month + index, current!.day);
+          List<DateTime?> days = populateDate(currentListMonth);
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -147,17 +146,19 @@ class _VerticalCalendarState extends State<SimpleVerticalCalendar> {
                             InkWell(
                               onTap: (d * 7 + w) >= days.length ||
                                       days[d * 7 + w] != null &&
-                                          days[d * 7 + w].isBefore(current)
+                                          days[d * 7 + w]!.isBefore(current!)
                                   ? null
                                   : () {
                                       if (startDate == null ||
-                                          startDate.compareTo(days[d * 7 + w]) >
+                                          startDate!
+                                                  .compareTo(days[d * 7 + w]!) >
                                               0) {
                                         setState(() {
                                           startDate = days[d * 7 + w];
                                           endDate = days[d * 7 + w];
                                         });
-                                      } else if (startDate.compareTo(endDate) ==
+                                      } else if (startDate!
+                                              .compareTo(endDate!) ==
                                           0) {
                                         setState(() {
                                           endDate = days[d * 7 + w];
@@ -168,27 +169,27 @@ class _VerticalCalendarState extends State<SimpleVerticalCalendar> {
                                           endDate = days[d * 7 + w];
                                         });
                                       }
-                                      widget.onDateTap(startDate, endDate);
+                                      widget.onDateTap!(startDate!, endDate!);
                                     },
                               child: Stack(
                                 alignment: Alignment.center,
                                 children: [
                                   if (!checkInvalidDate(d * 7 + w, days))
                                     if (checkInRange(
-                                        days[d * 7 + w], startDate, endDate))
+                                        days[d * 7 + w]!, startDate, endDate))
                                       Container(
                                         width: double.maxFinite,
-                                        height: boxHeight - 10,
+                                        height: boxHeight! - 10,
                                         decoration: BoxDecoration(
                                           color: widget.dayStyle
                                               .dateInRangeBackgroundColor,
                                         ),
                                         margin: EdgeInsets.only(
                                           left: startDate == days[d * 7 + w]
-                                              ? boxHeight / 2
+                                              ? boxHeight! / 2
                                               : 0,
                                           right: endDate == days[d * 7 + w]
-                                              ? boxHeight / 2
+                                              ? boxHeight! / 2
                                               : 0,
                                         ),
                                       ),
@@ -202,16 +203,16 @@ class _VerticalCalendarState extends State<SimpleVerticalCalendar> {
                                             endDate != null)
                                         ? BoxDecoration(
                                             borderRadius: checkIsFirstOrLast(
-                                                    days[d * 7 + w],
-                                                    startDate,
-                                                    endDate)
+                                                    days[d * 7 + w]!,
+                                                    startDate!,
+                                                    endDate!)
                                                 ? BorderRadius.circular(
-                                                    boxHeight / 2)
+                                                    boxHeight! / 2)
                                                 : BorderRadius.circular(0),
                                             color: checkIsFirstOrLast(
-                                                    days[d * 7 + w],
-                                                    startDate,
-                                                    endDate)
+                                                    days[d * 7 + w]!,
+                                                    startDate!,
+                                                    endDate!)
                                                 ? widget.dayStyle
                                                     .selectedBackgroundColor
                                                 : Colors.transparent,
@@ -220,7 +221,7 @@ class _VerticalCalendarState extends State<SimpleVerticalCalendar> {
                                     child: Text(
                                       checkInvalidDate(d * 7 + w, days)
                                           ? ""
-                                          : days[d * 7 + w]?.day?.toString() ??
+                                          : days[d * 7 + w]?.day.toString() ??
                                               "",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
@@ -229,7 +230,7 @@ class _VerticalCalendarState extends State<SimpleVerticalCalendar> {
                                                 current: current)
                                             ? widget
                                                 .dayStyle.unavailableTextColor
-                                            : checkInRange(days[d * 7 + w],
+                                            : checkInRange(days[d * 7 + w]!,
                                                     startDate, endDate)
                                                 ? widget
                                                     .dayStyle.selectedTextColor

@@ -11,7 +11,7 @@ class HeaderWidget extends StatelessWidget {
   final DateTime thisHeaderDate;
 
   ///Styling specify by user
-  final HeaderStyle headerStyle;
+  final HeaderStyle? headerStyle;
   const HeaderWidget(
     this.thisHeaderDate, {
     this.headerStyle,
@@ -21,11 +21,12 @@ class HeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      decoration: headerStyle.backgroundStyle,
+      decoration: headerStyle?.backgroundStyle,
       child: Text(
-        DateFormat(monthFormat[headerStyle.monthFormat]).format(thisHeaderDate),
-        style: headerStyle.titleTextStyle,
-        textAlign: headerStyle.textAlgin,
+        DateFormat(monthFormat[headerStyle?.monthFormat])
+            .format(thisHeaderDate),
+        style: headerStyle?.titleTextStyle,
+        textAlign: headerStyle?.textAlgin,
       ),
     );
   }

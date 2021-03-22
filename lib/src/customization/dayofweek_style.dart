@@ -12,7 +12,7 @@ class DayOfWeekHeaderStyle {
   final EdgeInsets padding;
   final EdgeInsets margin;
   final Decoration backgroundStyle;
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
   final TextAlign textAlgin;
   const DayOfWeekHeaderStyle({
     this.textStyle,

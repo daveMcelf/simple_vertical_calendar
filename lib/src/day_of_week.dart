@@ -9,7 +9,7 @@ class DayOfWeekWidget extends StatelessWidget {
   final String thisHeaderText;
 
   ///Styling specify by user
-  final DayOfWeekHeaderStyle dayOfWeekStyle;
+  final DayOfWeekHeaderStyle? dayOfWeekStyle;
   const DayOfWeekWidget(
     this.thisHeaderText, {
     this.dayOfWeekStyle,
@@ -19,13 +19,13 @@ class DayOfWeekWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      decoration: dayOfWeekStyle.backgroundStyle,
-      margin: dayOfWeekStyle.margin,
-      padding: dayOfWeekStyle.padding,
+      decoration: dayOfWeekStyle?.backgroundStyle,
+      margin: dayOfWeekStyle?.margin,
+      padding: dayOfWeekStyle?.padding,
       child: Text(
         thisHeaderText,
-        style: dayOfWeekStyle.textStyle,
-        textAlign: dayOfWeekStyle.textAlgin,
+        style: dayOfWeekStyle?.textStyle,
+        textAlign: dayOfWeekStyle?.textAlgin,
       ),
     );
   }

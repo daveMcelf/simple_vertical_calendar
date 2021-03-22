@@ -13,7 +13,7 @@ import 'package:simple_vertical_calendar/src/constant.dart';
 class HeaderStyle {
   final TextStyle titleTextStyle;
   final MonthFormats monthFormat;
-  final Decoration backgroundStyle;
+  final Decoration? backgroundStyle;
   final TextAlign textAlgin;
   const HeaderStyle({
     this.titleTextStyle = const TextStyle(
