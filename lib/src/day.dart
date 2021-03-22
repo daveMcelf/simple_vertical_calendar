@@ -9,11 +9,11 @@ import 'package:simple_vertical_calendar/src/customization/day_style.dart';
 ///
 class DayWidget extends StatelessWidget {
   final String thisHeaderText;
-  final DayHeaderStyle dayOfWeekStyle;
-  final double boxHeight;
-  final bool isInRange;
-  final bool isFirstOrLast;
-  final bool isValidDate;
+  final DayHeaderStyle? dayOfWeekStyle;
+  final double? boxHeight;
+  final bool? isInRange;
+  final bool? isFirstOrLast;
+  final bool? isValidDate;
   const DayWidget(
     this.thisHeaderText, {
     this.dayOfWeekStyle,
