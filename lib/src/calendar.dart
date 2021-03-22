@@ -114,7 +114,6 @@ class _VerticalCalendarState extends State<SimpleVerticalCalendar> {
           DateTime currentListMonth =
               DateTime(current!.year, current!.month + index, current!.day);
           List<DateTime?> days = populateDate(currentListMonth);
-
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

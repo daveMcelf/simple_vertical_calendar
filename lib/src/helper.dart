@@ -38,7 +38,7 @@ List<DateTime?> populateDate(DateTime date) {
   var firstDayNextMonth = new DateTime(firstDayThisMonth.year,
       firstDayThisMonth.month + 1, firstDayThisMonth.day);
 
-  List<DateTime?> dt = <DateTime>[];
+  List<DateTime?> dt = <DateTime?>[];
   for (var i = 0;
       i < firstDayNextMonth.difference(firstDayThisMonth).inDays;
       i++) {
