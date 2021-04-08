@@ -1,6 +1,7 @@
 library simple_vertical_calendar.src.calendar;
 
 import 'package:flutter/material.dart';
+import 'package:simple_vertical_calendar/simple_vertical_calendar.dart';
 import 'package:simple_vertical_calendar/src/customization/day_style.dart';
 import 'package:simple_vertical_calendar/src/customization/dayofweek_style.dart';
 import 'package:simple_vertical_calendar/src/customization/header_style.dart';
@@ -64,16 +65,22 @@ class SimpleVerticalCalendar extends StatefulWidget {
   /// where index of Monday = 0, and Sunday = 6.
   final List<String> dayOfWeek;
 
-  final void Function(DateTime startDate, DateTime endDate)? onDateTap;
-  SimpleVerticalCalendar(
-      {this.startDate,
-      this.endDate,
-      this.numOfMonth = 12,
-      this.headerStyle = const HeaderStyle(),
-      this.dayStyle = const DayHeaderStyle(),
-      this.onDateTap,
-      this.dayOfWeekHeaderStyle = const DayOfWeekHeaderStyle(),
-      this.dayOfWeek = const ["M", "T", "W", "T", "F", "S", "S"]});
+  ///[calendarOption] pick your option between [RANGE, SINGLE_SELECTION]
+  ///
+  final CalendarOptions calendarOption;
+
+  final void Function(DateTime startDate, DateTime? endDate)? onDateTap;
+  SimpleVerticalCalendar({
+    this.startDate,
+    this.endDate,
+    this.numOfMonth = 12,
+    this.headerStyle = const HeaderStyle(),
+    this.dayStyle = const DayHeaderStyle(),
+    this.onDateTap,
+    this.dayOfWeekHeaderStyle = const DayOfWeekHeaderStyle(),
+    this.calendarOption = CalendarOptions.RANGE_SELECTION,
+    this.dayOfWeek = const ["M", "T", "W", "T", "F", "S", "S"],
+  });
   @override
   _VerticalCalendarState createState() => _VerticalCalendarState();
 }
@@ -103,6 +110,33 @@ class _VerticalCalendarState extends State<SimpleVerticalCalendar> {
     super.initState();
   }
 
+  void rangeSelectedTapEvent(DateTime selectedDay) {
+    if (startDate == null || startDate!.compareTo(selectedDay) > 0) {
+      setState(() {
+        startDate = selectedDay;
+        endDate = selectedDay;
+      });
+    } else if (startDate!.compareTo(endDate!) == 0) {
+      setState(() {
+        endDate = selectedDay;
+      });
+    } else {
+      setState(() {
+        startDate = selectedDay;
+        endDate = selectedDay;
+      });
+    }
+    widget.onDateTap!(startDate!, endDate!);
+  }
+
+  void singleSelectedTapEvent(DateTime selectedDay) {
+    setState(() {
+      startDate = selectedDay;
+      endDate = selectedDay;
+    });
+    widget.onDateTap!(startDate!, endDate!);
+  }
+
   @override
   Widget build(BuildContext context) {
     boxHeight = (MediaQuery.of(context).size.width - 70) / 7;
@@ -112,7 +146,7 @@ class _VerticalCalendarState extends State<SimpleVerticalCalendar> {
         itemCount: widget.numOfMonth,
         itemBuilder: (context, index) {
           DateTime currentListMonth =
-              DateTime(current!.year, current!.month + index, current!.day);
+              DateTime(current!.year, current!.month + index, 1);
           List<DateTime?> days = populateDate(currentListMonth);
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,27 +183,20 @@ class _VerticalCalendarState extends State<SimpleVerticalCalendar> {
                                           days[d * 7 + w]!.isBefore(current!)
                                   ? null
                                   : () {
-                                      if (startDate == null ||
-                                          startDate!
-                                                  .compareTo(days[d * 7 + w]!) >
-                                              0) {
-                                        setState(() {
-                                          startDate = days[d * 7 + w];
-                                          endDate = days[d * 7 + w];
-                                        });
-                                      } else if (startDate!
-                                              .compareTo(endDate!) ==
-                                          0) {
-                                        setState(() {
-                                          endDate = days[d * 7 + w];
-                                        });
-                                      } else {
-                                        setState(() {
-                                          startDate = days[d * 7 + w];
-                                          endDate = days[d * 7 + w];
-                                        });
+                                      switch (widget.calendarOption) {
+                                        case CalendarOptions.RANGE_SELECTION:
+                                          rangeSelectedTapEvent(
+                                              days[d * 7 + w]!);
+                                          break;
+                                        case CalendarOptions.SINGLE:
+                                          singleSelectedTapEvent(
+                                              days[d * 7 + w]!);
+                                          break;
+                                        default:
+                                          rangeSelectedTapEvent(
+                                              days[d * 7 + w]!);
+                                          break;
                                       }
-                                      widget.onDateTap!(startDate!, endDate!);
                                     },
                               child: Stack(
                                 alignment: Alignment.center,

@@ -8,7 +8,7 @@ This widget is design to be highly customizable. You can change any section of t
 
 add this library to your `pubspec.yaml`
 ```
-simple_vertical_calendar: ^0.0.2
+simple_vertical_calendar: ^1.1.0
 ```
 
 Using this widget,
@@ -24,6 +24,7 @@ SimpleVerticalCalendar(
         textAlgin: TextAlign.left,
         monthFormat: MonthFormats.FULL,
     ),
+    calendarOption: CalendarOptions.RANGE_SELECTION, // [RANGE_SELECTION, SINGLE]
     dayOfWeekHeaderStyle: DayOfWeekHeaderStyle(),
     dayStyle: DayHeaderStyle(
         textColor: Colors.black,
