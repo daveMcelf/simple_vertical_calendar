@@ -10,3 +10,8 @@ final monthFormat = const {
   MonthFormats.SHORT: 'MMM y',
   MonthFormats.MONTH_ONLY: 'MMMM',
 };
+
+/// [CalendarOptions] is the type of the selection of the calendar.
+///
+/// current support format are: `RANGE_SELECTION`, `SINGLE`.
+enum CalendarOptions { RANGE_SELECTION, SINGLE }

@@ -39,6 +39,7 @@ class MyHomePage extends StatelessWidget {
               textAlgin: TextAlign.left,
               monthFormat: MonthFormats.FULL,
             ),
+            calendarOption: CalendarOptions.RANGE_SELECTION,
             dayOfWeekHeaderStyle: DayOfWeekHeaderStyle(),
             dayStyle: DayHeaderStyle(
               textColor: Colors.black,
