@@ -1,5 +1,8 @@
 # simple_vertical_calendar
 
+[![pub package](https://img.shields.io/pub/v/simple_vertical_calendar.svg?label=simple_vertical_calendar)](https://pub.dev/packages/simple_vertical_calendar)
+[![likes](https://badges.bar/simple_vertical_calendar/likes)](https://pub.dev/packages/simple_vertical_calendar/score)
+
 This package contain widget for building a Vertical Scroll Calendar widget that is similar to the one use in AirBnB.
 This widget is design to be highly customizable. You can change any section of the widget to your like.
 ![](https://user-images.githubusercontent.com/13494582/105748644-c4aea100-5f85-11eb-825e-c4dda831d79a.jpg)
